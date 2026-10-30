@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.fivedrat.ui.navigation.AppDestination
 import com.fivedrat.ui.screen.PlaceholderScreen
 import com.fivedrat.ui.screen.home.HomeScreen
+import com.fivedrat.ui.screen.missions.MissionsScreen
 import com.fivedrat.ui.theme.FiveDRatTheme
 
 @Composable
@@ -64,6 +65,8 @@ fun FiveDRatApp() {
                         when (destination) {
                             AppDestination.Home ->
                                 HomeScreen(onNavigate = { route -> navController.navigate(route) })
+                            AppDestination.Missions ->
+                                MissionsScreen()
                             else ->
                                 PlaceholderScreen(title = stringResource(destination.labelRes))
                         }
