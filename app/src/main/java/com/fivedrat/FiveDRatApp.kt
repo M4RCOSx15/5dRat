@@ -19,6 +19,7 @@ import com.fivedrat.ui.navigation.AppDestination
 import com.fivedrat.ui.screen.PlaceholderScreen
 import com.fivedrat.ui.screen.home.HomeScreen
 import com.fivedrat.ui.screen.missions.MissionsScreen
+import com.fivedrat.ui.screen.profile.ProfileScreen
 import com.fivedrat.ui.theme.FiveDRatTheme
 
 @Composable
@@ -67,6 +68,8 @@ fun FiveDRatApp() {
                                 HomeScreen(onNavigate = { route -> navController.navigate(route) })
                             AppDestination.Missions ->
                                 MissionsScreen()
+                            AppDestination.Profile ->
+                                ProfileScreen()
                             else ->
                                 PlaceholderScreen(title = stringResource(destination.labelRes))
                         }
