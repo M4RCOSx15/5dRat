@@ -47,3 +47,17 @@ erro.
 - Nenhum log de SQL do jogador em release; sem telemetria sem aprovação.
 - `allowBackup=true` provisório (ADR-008; revisão na M13).
 - Chaves de assinatura de release fora do repositório.
+
+## Achados do spike M1c (sqlite-jdbc, JVM — 2026-10-30)
+- **ATTACH alcança arquivos irmãos**: `ATTACH DATABASE '<path>'` na conexão
+  do jogador lê outro .db (prova no SqlSandboxSpikeTest). O binding Android
+  não expõe `sqlite3_set_authorizer` → a M7 precisa de gate que rejeite
+  ATTACH/DETACH (e PRAGMAs de escrita) antes de executar.
+- **Read-only funciona**: modo `OPEN_READONLY`/`open_mode=1` bloqueia DML —
+  adequado para missões de consulta pura.
+- **Input empilhado**: JDBC executa só a 1ª instrução e descarta o resto.
+  Confirmar no Android binding via `SqlSandboxAndroidSpikeTest`
+  (connectedDebugAndroidTest) — gate de instrução única continua necessário.
+- **SQL de jogo funciona** em banco scratch isolado por arquivo.
+- Execução no emulador pendente (sem AVD na máquina); androidTest commitado
+  para rodar quando houver device — risco residual registrado.

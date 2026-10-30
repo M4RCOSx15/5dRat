@@ -23,6 +23,7 @@ android {
                 .toInt()
         versionCode = 1
         versionName = "0.1.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -57,4 +58,8 @@ dependencies {
     debugImplementation(libs.compose.ui.tooling)
 
     testImplementation(libs.junit)
+    // Spike M1c — JDBC apenas em teste JVM; o motor real usa android.database.sqlite
+    testImplementation(libs.sqlite.jdbc)
+
+    androidTestImplementation(libs.androidx.test.junit)
 }

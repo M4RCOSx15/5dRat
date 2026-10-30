@@ -11,8 +11,8 @@ debug/previews). M6 pode rodar em paralelo às telas.
 |----|--------|--------|--------|--------------|
 | M0 | Auditoria e linha de base | ✅ Concluída | — | — |
 | M1a | Governança e qualidade do repositório | ✅ Concluída | m1a/repo-governance | M0 |
-| M1b | Fundação do projeto e design system | 🔄 Em andamento | m1b/design-foundation | M1a |
-| M1c | Spike de viabilidade do isolamento SQL (descartável) | ⬜ Pendente | spike/m1c-sql-isolation | M1a |
+| M1b | Fundação do projeto e design system | ✅ Concluída | m1b/design-foundation | M1a |
+| M1c | Spike de viabilidade do isolamento SQL (descartável) | 🔄 Em andamento | spike/m1c-sql-isolation | M1a |
 | M2 | Tela Início | ⬜ Pendente | m2/home-screen | M1b |
 | M3 | Tela Missões | ⬜ Pendente | m3/missions-screen | M1b |
 | M4 | Tela Laboratório | ⬜ Pendente | m4/lab-screen | M1b, M1c |

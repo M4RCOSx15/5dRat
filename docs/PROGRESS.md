@@ -44,3 +44,14 @@
   4 destinos e placeholders (telas reais nas M2–M5).
 - Fontes embarcadas adiadas: `res/font` precisa dos TTFs (Plus Jakarta Sans,
   JetBrains Mono — OFL); Type.kt usa fontes de sistema com TODO registrado.
+
+## 2026-10-30 — M1b aprovada (PR #2 merge) + M1c spike (em revisão)
+- CI: fix `chmod +x gradlew` aplicado e mergeado (PR #2).
+- M1c: spike de isolamento SQL com sqlite-jdbc 3.54.1.0 em teste JVM.
+  Achados registrados em SECURITY.md: ATTACH escapa para arquivos irmãos
+  (gate na M7 obrigatório — binding não expõe authorizer), read-only
+  bloqueia escrita, JDBC roda só a 1ª instrução de input empilhado.
+- androidTest `SqlSandboxAndroidSpikeTest` commitado para validação em
+  dispositivo; execução pendente (sem emulador/AVD local).
+- Branch `spike/m1c-sql-isolation` é descartável por definição — decisão de
+  merge fica com o usuário.
