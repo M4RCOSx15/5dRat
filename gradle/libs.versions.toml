@@ -1,0 +1,19 @@
+# Catalogo unico de versoes. Versoes exatas, sem "+" nem "latest".
+# Ultima verificacao das versoes: 2026-10-29
+# Fontes: developer.android.com (AGP/Gradle), kotlinlang.org (Kotlin),
+# plugins.gradle.org (ktlint-gradle).
+[versions]
+agp = "9.4.1"
+# Kotlin: gerenciado pelo built-in Kotlin do AGP 9 (KGP >= 2.2.10 automatico).
+ktlintGradle = "14.2.0"
+junit = "4.13.2"
+compileSdk = "36"
+minSdk = "26"
+targetSdk = "36"
+
+[libraries]
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
