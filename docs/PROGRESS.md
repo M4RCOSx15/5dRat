@@ -32,3 +32,15 @@
   para `origin`; PR para `main` aguardando aprovação do usuário.
 - Limitação mantida: sem Android SDK local, `assembleDebug`/`testDebugUnitTest`
   serão provados somente na CI do GitHub Actions.
+
+## 2026-10-29 — M1a aprovada (PR #1 merge) + M1b (em andamento)
+- PR #1 mergeado na main. Android Studio abriu e baixou o SDK; com
+  `local.properties` (sdk.dir) o AGP auto-instalou a plataforma `android-36` —
+  builds locais passaram a funcionar (`assembleDebug` OK).
+- `local.properties` corrigido para forward slashes (escape `\U` quebrava path).
+- M1b: catálogo Compose (BOM 2026.09.00, activity-compose 1.13.0,
+  navigation-compose 2.10.2 — verificado em dl.google.com), tema M3 com os
+  tokens do ADR-001, cores semânticas de chips, tipografia, NavigationBar com
+  4 destinos e placeholders (telas reais nas M2–M5).
+- Fontes embarcadas adiadas: `res/font` precisa dos TTFs (Plus Jakarta Sans,
+  JetBrains Mono — OFL); Type.kt usa fontes de sistema com TODO registrado.
