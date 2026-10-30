@@ -62,3 +62,10 @@
 - Dados ilustrativos (XP, contagens, CASE_FILE #) NÃO reproduzidos (P6/P8) —
   fonte real chega na M6. Botões navegam para missions/lab via NavController.
 - Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M2 aprovada (PR #4 merge) + M3: Tela Missões (em revisão)
+- MissionsScreen do protótipo 5drat_miss_es: título "Escolha seu próximo caso",
+  contagem derivada da lista real de casos (sem números ilustrativos — P6/P8),
+  cards CASE_001/002 disponíveis (PlayArrow) e CASE_003 bloqueado (Lock).
+- Lista de casos estática provisória; bloqueio dinâmico por progresso vem da M6.
+- Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
