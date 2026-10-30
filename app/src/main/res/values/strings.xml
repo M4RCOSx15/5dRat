@@ -15,4 +15,8 @@
     <string name="home_train_sql">Treinar SQL</string>
     <string name="home_detective_tip_title">Dica do Detetive</string>
     <string name="home_detective_tip_body">Combine GROUP BY com HAVING count(*) &gt; 1 para encontrar registros duplicados.</string>
+    <string name="missions_title">Escolha seu próximo caso</string>
+    <string name="missions_available">%1$d disponíveis</string>
+    <string name="missions_locked">Bloqueada</string>
+    <string name="missions_open">Abrir missão</string>
 </resources>
