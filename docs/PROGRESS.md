@@ -69,3 +69,9 @@
   cards CASE_001/002 disponíveis (PlayArrow) e CASE_003 bloqueado (Lock).
 - Lista de casos estática provisória; bloqueio dinâmico por progresso vem da M6.
 - Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M3 aprovada (PR #5 merge) + M5: Tela Perfil (em revisão)
+- ProfileScreen do protótipo 5drat_perfil: avatar robot_001 local (drawable,
+  FilterQuality.None — P1/ADR-004), divisão, seções Evolução/Histórico com
+  placeholders honestos (sem métricas ilustrativas — P6/P8; dados na M6).
+- Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
