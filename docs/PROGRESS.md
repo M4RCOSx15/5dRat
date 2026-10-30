@@ -75,3 +75,10 @@
   FilterQuality.None — P1/ADR-004), divisão, seções Evolução/Histórico com
   placeholders honestos (sem métricas ilustrativas — P6/P8; dados na M6).
 - Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M5 aprovada (PR #6 merge) + M4: Tela Laboratório (em revisão)
+- LabScreen do protótipo 5drat_laborat_rio: schema do banco com chips de
+  tabela usando SemanticChipColors (design system), console SQL com editor
+  mono (CodeTextStyle), Executar/Limpar e área de resultado em estado vazio
+  honesto — execução real é da M7 (motor isolado, achados da M1c).
+- Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
