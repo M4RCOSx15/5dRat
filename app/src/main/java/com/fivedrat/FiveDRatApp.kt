@@ -17,6 +17,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fivedrat.ui.navigation.AppDestination
 import com.fivedrat.ui.screen.PlaceholderScreen
+import com.fivedrat.ui.screen.home.HomeScreen
 import com.fivedrat.ui.theme.FiveDRatTheme
 
 @Composable
@@ -60,7 +61,12 @@ fun FiveDRatApp() {
             ) {
                 AppDestination.entries.forEach { destination ->
                     composable(destination.route) {
-                        PlaceholderScreen(title = stringResource(destination.labelRes))
+                        when (destination) {
+                            AppDestination.Home ->
+                                HomeScreen(onNavigate = { route -> navController.navigate(route) })
+                            else ->
+                                PlaceholderScreen(title = stringResource(destination.labelRes))
+                        }
                     }
                 }
             }

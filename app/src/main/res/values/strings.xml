@@ -6,4 +6,13 @@
     <string name="nav_lab">Laboratório</string>
     <string name="nav_profile">Perfil</string>
     <string name="placeholder_coming_soon">Em construção</string>
+    <string name="home_mission_title">MISSÃO ATUAL</string>
+    <string name="home_mission_name">O rato no inventário</string>
+    <string name="home_mission_sql_hint">SELECT * FROM inventory WHERE anomaly = true;</string>
+    <string name="home_continue_mission">Continuar missão</string>
+    <string name="home_shortcuts">Atalhos</string>
+    <string name="home_new_mission">Nova missão</string>
+    <string name="home_train_sql">Treinar SQL</string>
+    <string name="home_detective_tip_title">Dica do Detetive</string>
+    <string name="home_detective_tip_body">Combine GROUP BY com HAVING count(*) &gt; 1 para encontrar registros duplicados.</string>
 </resources>

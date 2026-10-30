@@ -55,3 +55,10 @@
   dispositivo; execução pendente (sem emulador/AVD local).
 - Branch `spike/m1c-sql-isolation` é descartável por definição — decisão de
   merge fica com o usuário.
+
+## 2026-10-30 — M2: Tela Início (em revisão)
+- HomeScreen implementada do protótipo 5drat_in_cio: cartão "MISSÃO ATUAL"
+  (primary-container + hint SQL em CodeTextStyle), atalhos, Dica do Detetive.
+- Dados ilustrativos (XP, contagens, CASE_FILE #) NÃO reproduzidos (P6/P8) —
+  fonte real chega na M6. Botões navegam para missions/lab via NavController.
+- Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
