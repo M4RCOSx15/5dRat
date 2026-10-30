@@ -19,4 +19,10 @@
     <string name="missions_available">%1$d disponíveis</string>
     <string name="missions_locked">Bloqueada</string>
     <string name="missions_open">Abrir missão</string>
+    <string name="profile_avatar_cd">Avatar do investigador robot_001</string>
+    <string name="profile_division">MEMBRO DA DIVISÃO 5DRAT</string>
+    <string name="profile_evolution">Sua evolução</string>
+    <string name="profile_level_placeholder">Nível 01 · Investigador iniciante — XP em breve</string>
+    <string name="profile_history">Seu histórico de caça</string>
+    <string name="profile_metrics_placeholder">Métricas reais em breve — ainda sem dados de progresso.</string>
 </resources>
