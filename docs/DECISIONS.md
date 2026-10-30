@@ -76,3 +76,16 @@ Formato: contexto → decisão → alternativas → consequências.
   visual e a navegação ficam na M1b como planejado.
 - **Consequências:** CI já prova toolchain ponta a ponta; placeholder será
   substituído na M1b.
+
+## ADR-010 — Versões Compose compatíveis com compileSdk 36
+- **Contexto:** o Compose BOM `2026.09.00` (mais novo) resolve libs `1.12.x`
+  que exigem `compileSdk >= 37`; `navigation-compose 2.10.x` idem. O
+  compileSdk 36 está fixado em ADR-005 e mudá-lo exigiria novo ADR.
+- **Decisão:** pin `compose-bom 2026.06.01` (ui `1.11.4`) e
+  `navigation-compose 2.9.8`, ambos compilados contra SDK 36. Plugin
+  `org.jetbrains.kotlin.plugin.compose` na versão `2.4.21`, casada com o
+  Kotlin embutido no AGP 9.4.1 (exigido desde Kotlin 2.0 para `compose=true`).
+- **Alternativas:** subir compileSdk para 37 (revisar ADR-005 quando o AGP
+  exigir ou quando houver ganho real).
+- **Consequências:** foundation compila e linta na SDK 36; upgrade do BOM
+  avaliado junto com a decisão do compileSdk.
