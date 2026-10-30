@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">5dRat</string>
+    <string name="nav_home">Início</string>
+    <string name="nav_missions">Missões</string>
+    <string name="nav_lab">Laboratório</string>
+    <string name="nav_profile">Perfil</string>
+    <string name="placeholder_coming_soon">Em construção</string>
 </resources>

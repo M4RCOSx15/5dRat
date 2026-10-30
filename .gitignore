@@ -12,7 +12,7 @@ captures/
 .idea/
 *.ipr
 *.iws
-navigation/
+/navigation/
 
 # Keystore e segredos — nunca versionar
 *.keystore
