@@ -25,4 +25,10 @@
     <string name="profile_level_placeholder">Nível 01 · Investigador iniciante — XP em breve</string>
     <string name="profile_history">Seu histórico de caça</string>
     <string name="profile_metrics_placeholder">Métricas reais em breve — ainda sem dados de progresso.</string>
+    <string name="lab_schema_title">Schema — loja_demo.db</string>
+    <string name="lab_console_title">Console SQL</string>
+    <string name="lab_run">Executar consulta</string>
+    <string name="lab_clear">Limpar</string>
+    <string name="lab_result_title">Resultado</string>
+    <string name="lab_result_empty">O motor SQL chega na M7 — resultado aparecerá aqui.</string>
 </resources>
