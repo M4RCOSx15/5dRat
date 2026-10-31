@@ -104,3 +104,10 @@
   mapeados — nunca toca o banco de progresso.
 - Pendente nesta M7: ScenarioGenerator/seeds, MissionValidator, fiação do
   LabScreen ao executor e validação de integridade do scratch.
+
+## 2026-10-30 — M7 fiação: LabScreen executa SQL real + README
+- LabScreen conectado ao AndroidSqlExecutor: botão Executar roda no sandbox
+  DemoScratchDb (loja_demo.db em filesDir, seed produtos/clientes/pedidos) em
+  Dispatchers.IO; resultado mostra colunas/linhas, Blocked/Error mapeados.
+- README.md criado: status do MVP, build/teste, resumo da arquitetura.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
