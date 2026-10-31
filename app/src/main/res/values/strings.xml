@@ -37,4 +37,5 @@
     <string name="rat_captured_title">RATO CAPTURADO</string>
     <string name="rat_captured_body">A aranha cibernética pegou o alvo. Caso encerrado.</string>
     <string name="rat_captured_close">Confirmar captura</string>
+    <string name="rat_captured_next">Próxima missão</string>
 </resources>

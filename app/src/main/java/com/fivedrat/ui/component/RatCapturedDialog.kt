@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -25,7 +27,10 @@ import com.fivedrat.R
  * VideoView é built-in — sem dependência de player pesado (P4).
  */
 @Composable
-fun RatCapturedDialog(onDismiss: () -> Unit) {
+fun RatCapturedDialog(
+    onDismiss: () -> Unit,
+    onNextMission: () -> Unit,
+) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             shape = MaterialTheme.shapes.medium,
@@ -66,6 +71,16 @@ fun RatCapturedDialog(onDismiss: () -> Unit) {
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                Button(
+                    onClick = onNextMission,
+                    colors =
+                        ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
+                        ),
+                ) {
+                    Text(stringResource(R.string.rat_captured_next))
+                }
                 TextButton(onClick = onDismiss) {
                     Text(stringResource(R.string.rat_captured_close))
                 }
