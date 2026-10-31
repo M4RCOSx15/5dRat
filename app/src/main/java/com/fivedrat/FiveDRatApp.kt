@@ -68,9 +68,9 @@ fun FiveDRatApp() {
                             AppDestination.Home ->
                                 HomeScreen(onNavigate = { route -> navController.navigate(route) })
                             AppDestination.Missions ->
-                                MissionsScreen()
+                                MissionsScreen(onNavigate = { route -> navController.navigate(route) })
                             AppDestination.Lab ->
-                                LabScreen()
+                                LabScreen(onNavigate = { route -> navController.navigate(route) })
                             AppDestination.Profile ->
                                 ProfileScreen()
                             else ->
