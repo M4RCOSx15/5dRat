@@ -15,9 +15,9 @@ debug/previews). M6 pode rodar em paralelo às telas.
 | M1c | Spike de viabilidade do isolamento SQL (descartável) | 🔄 Em andamento | spike/m1c-sql-isolation | M1a |
 | M2 | Tela Início | ✅ Concluída | m2/home-screen | M1b |
 | M3 | Tela Missões | ✅ Concluída | m3/missions-screen | M1b |
-| M4 | Tela Laboratório | 🔄 Em andamento | m4/lab-screen | M1b, M1c |
+| M4 | Tela Laboratório | ✅ Concluída | m4/lab-screen | M1b, M1c |
 | M5 | Tela Perfil | ✅ Concluída | m5/profile-screen | M1b |
-| M6 | Persistência e domínio | ⬜ Pendente | m6/persistence-domain | M1a |
+| M6 | Persistência e domínio | 🔄 Em andamento | m6/persistence-domain | M1a |
 | M7 | Motor SQL isolado | ⬜ Pendente | m7/sql-sandbox | M1c, M6 |
 | M8 | Primeira missão: "O rato no inventário" | ⬜ Pendente | m8/first-mission | M7, M3 |
 | M9 | Progressão e recompensas | ⬜ Pendente | m9/progression | M6, M8 |

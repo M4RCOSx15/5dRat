@@ -82,3 +82,12 @@
   mono (CodeTextStyle), Executar/Limpar e área de resultado em estado vazio
   honesto — execução real é da M7 (motor isolado, achados da M1c).
 - Verificações locais: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M4 aprovada (PR #7 merge) + M6: Domínio e ProgressRepository (em revisão)
+- domain/ Kotlin-puro (ADR-007): MissionState, Mission, PlayerProgress.
+- Contrato ProgressRepository (fronteira seção 5): Flow de progresso,
+  recordRatCaptured/recordMissionCompleted idempotentes por missionId.
+- data/InMemoryProgressRepository: impl provisória com estado real para as
+  telas; persistência Room/DataStore permanece na M6 (KSP/versões a fixar).
+- Testes JVM do domínio: 3/3 verdes (idempotência, contagem, nível por XP).
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
