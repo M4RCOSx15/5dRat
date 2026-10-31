@@ -16,6 +16,7 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,7 +42,10 @@ private val missions =
     )
 
 @Composable
-fun MissionsScreen(modifier: Modifier = Modifier) {
+fun MissionsScreen(
+    onNavigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier =
             modifier
@@ -62,13 +66,16 @@ fun MissionsScreen(modifier: Modifier = Modifier) {
         )
 
         missions.forEach { mission ->
-            MissionItem(mission)
+            MissionItem(mission, onNavigate)
         }
     }
 }
 
 @Composable
-private fun MissionItem(mission: MissionCard) {
+private fun MissionItem(
+    mission: MissionCard,
+    onNavigate: (String) -> Unit,
+) {
     Card(
         colors =
             CardDefaults.cardColors(
@@ -105,21 +112,21 @@ private fun MissionItem(mission: MissionCard) {
                 )
             }
             Spacer(Modifier.width(8.dp))
-            Icon(
-                imageVector = if (mission.locked) Icons.Default.Lock else Icons.Default.PlayArrow,
-                contentDescription =
-                    if (mission.locked) {
-                        stringResource(R.string.missions_locked)
-                    } else {
-                        stringResource(R.string.missions_open)
-                    },
-                tint =
-                    if (mission.locked) {
-                        MaterialTheme.colorScheme.outline
-                    } else {
-                        MaterialTheme.colorScheme.primary
-                    },
-            )
+            if (mission.locked) {
+                Icon(
+                    imageVector = Icons.Default.Lock,
+                    contentDescription = stringResource(R.string.missions_locked),
+                    tint = MaterialTheme.colorScheme.outline,
+                )
+            } else {
+                IconButton(onClick = { onNavigate("lab") }) {
+                    Icon(
+                        imageVector = Icons.Default.PlayArrow,
+                        contentDescription = stringResource(R.string.missions_open),
+                        tint = MaterialTheme.colorScheme.primary,
+                    )
+                }
+            }
         }
     }
 }
