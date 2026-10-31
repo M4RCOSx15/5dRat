@@ -18,6 +18,8 @@
     <string name="missions_title">Escolha seu próximo caso</string>
     <string name="missions_available">%1$d disponíveis</string>
     <string name="missions_locked">Bloqueada</string>
+    <string name="missions_done">Concluída</string>
+    <string name="lab_reset">Recriar banco</string>
     <string name="missions_open">Abrir missão</string>
     <string name="profile_avatar_cd">Avatar do investigador robot_001</string>
     <string name="profile_division">MEMBRO DA DIVISÃO 5DRAT</string>
