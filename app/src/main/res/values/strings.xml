@@ -32,4 +32,7 @@
     <string name="lab_result_title">Resultado</string>
     <string name="lab_result_empty">Execute uma consulta para ver o resultado aqui.</string>
     <string name="lab_result_rows">%1$d linhas retornadas</string>
+    <string name="rat_captured_title">RATO CAPTURADO</string>
+    <string name="rat_captured_body">A aranha cibernética pegou o alvo. Caso encerrado.</string>
+    <string name="rat_captured_close">Confirmar captura</string>
 </resources>
