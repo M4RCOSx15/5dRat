@@ -29,6 +29,7 @@ import com.fivedrat.R
 import com.fivedrat.data.sql.AndroidSqlExecutor
 import com.fivedrat.data.sql.DemoScratchDb
 import com.fivedrat.domain.sql.SqlResult
+import com.fivedrat.ui.component.RatCapturedDialog
 import com.fivedrat.ui.theme.CodeTextStyle
 import com.fivedrat.ui.theme.LocalSemanticChipColors
 import kotlinx.coroutines.Dispatchers
@@ -45,9 +46,36 @@ fun LabScreen(modifier: Modifier = Modifier) {
     var sql by remember { mutableStateOf("SELECT * FROM produtos LIMIT 10;") }
     var result by remember { mutableStateOf<SqlResult?>(null) }
     var busy by remember { mutableStateOf(false) }
+    var captured by remember { mutableStateOf(false) }
+    var ratPresent by remember { mutableStateOf(true) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val chips = LocalSemanticChipColors.current
+
+    // Validador simples: confere o ESTADO do sandbox (não o SQL digitado) —
+    // se o rato sumiu de produtos, houve captura. Mini-MissionValidator.
+    fun checkRat() {
+        val r =
+            AndroidSqlExecutor(
+                scratchDbPath = DemoScratchDb.ensure(context).path,
+                readOnly = true,
+            ).execute("SELECT count(*) FROM produtos WHERE nome = 'Rato de borracha'")
+        if (r is SqlResult.Success) {
+            val count =
+                r.rows
+                    .firstOrNull()
+                    ?.firstOrNull()
+                    ?.toIntOrNull() ?: -1
+            if (ratPresent && count == 0) {
+                captured = true
+            }
+            ratPresent = count > 0
+        }
+    }
+
+    if (captured) {
+        RatCapturedDialog(onDismiss = { captured = false })
+    }
 
     Column(
         modifier =
@@ -115,6 +143,7 @@ fun LabScreen(modifier: Modifier = Modifier) {
                                     ).execute(sql)
                                 }
                             busy = false
+                            checkRat()
                         }
                     }
                 },
