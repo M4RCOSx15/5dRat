@@ -43,7 +43,9 @@ object Campaign {
                 id = "case_002",
                 code = "CASE_002",
                 title = "Identidade falsa",
-                briefing = "Um cliente cadastrou CPF duplicado. Marque o registro fraudulento como flagged = 1 (só o impostor).",
+                briefing =
+                    "Um cliente cadastrou CPF duplicado. " +
+                        "Marque o registro fraudulento como flagged = 1 (só o impostor).",
                 tables = listOf("clients"),
                 schemaSql =
                     listOf(

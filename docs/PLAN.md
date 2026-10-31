@@ -18,8 +18,8 @@ debug/previews). M6 pode rodar em paralelo às telas.
 | M4 | Tela Laboratório | ✅ Concluída | m4/lab-screen | M1b, M1c |
 | M5 | Tela Perfil | ✅ Concluída | m5/profile-screen | M1b |
 | M6 | Persistência e domínio | ✅ Concluída | m6/persistence-domain | M1a |
-| M7 | Motor SQL isolado | 🔄 Em andamento | m7/sql-sandbox | M1c, M6 |
-| M8 | Primeira missão: "O rato no inventário" | ⬜ Pendente | m8/first-mission | M7, M3 |
+| M7 | Motor SQL isolado | ✅ Concluída | m7/sql-sandbox | M1c, M6 |
+| M8 | Primeira missão: "O rato no inventário" | 🔄 Em andamento | m8/first-mission | M7, M3 |
 | M9 | Progressão e recompensas | ⬜ Pendente | m9/progression | M6, M8 |
 | M10 | Gerador procedural determinístico | ⬜ Pendente | m10/scenario-generator | M7 |
 | M11 | Preparação para LLM local | ⬜ Pendente | m11/local-llm-spike | M10 |

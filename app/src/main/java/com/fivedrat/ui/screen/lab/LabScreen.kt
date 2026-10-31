@@ -51,7 +51,9 @@ fun LabScreen(
     modifier: Modifier = Modifier,
 ) {
     val case = Campaign.byId(AppServices.activeCaseId)
-    var sql by remember(case.id) { mutableStateOf("SELECT * FROM ${case.tables.first()} LIMIT 10;") }
+    var sql by remember(case.id) {
+        mutableStateOf("SELECT * FROM ${case.tables.first()} LIMIT 10;")
+    }
     var result by remember { mutableStateOf<SqlResult?>(null) }
     var busy by remember { mutableStateOf(false) }
     var captured by remember { mutableStateOf(false) }
