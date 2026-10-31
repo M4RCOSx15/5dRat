@@ -14,8 +14,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,8 +28,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.fivedrat.R
+import com.fivedrat.data.AppServices
 import com.fivedrat.data.sql.AndroidSqlExecutor
-import com.fivedrat.data.sql.DemoScratchDb
+import com.fivedrat.data.sql.CaseSandbox
+import com.fivedrat.domain.mission.Campaign
+import com.fivedrat.domain.mission.MissionValidator
 import com.fivedrat.domain.sql.SqlResult
 import com.fivedrat.ui.component.RatCapturedDialog
 import com.fivedrat.ui.theme.CodeTextStyle
@@ -37,44 +42,46 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * Tela Laboratório (M4) — console SQL do protótipo `5drat_laborat_rio`.
- * Execução real é da M7 (motor isolado); aqui o console captura a consulta
- * e mostra estado vazio honesto — sem resultados ilustrativos (P8).
+ * Laboratório do caso ativo (M8): sandbox próprio por caso, briefing real,
+ * e o MissionValidator confere o ESTADO final após cada execução.
  */
 @Composable
-fun LabScreen(modifier: Modifier = Modifier) {
-    var sql by remember { mutableStateOf("SELECT * FROM produtos LIMIT 10;") }
+fun LabScreen(
+    onNavigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val case = Campaign.byId(AppServices.activeCaseId)
+    var sql by remember(case.id) { mutableStateOf("SELECT * FROM ${case.tables.first()} LIMIT 10;") }
     var result by remember { mutableStateOf<SqlResult?>(null) }
     var busy by remember { mutableStateOf(false) }
     var captured by remember { mutableStateOf(false) }
-    var ratPresent by remember { mutableStateOf(true) }
+    var alreadyComplete by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val chips = LocalSemanticChipColors.current
 
-    // Validador simples: confere o ESTADO do sandbox (não o SQL digitado) —
-    // se o rato sumiu de produtos, houve captura. Mini-MissionValidator.
-    fun checkRat() {
-        val r =
+    fun validator() =
+        MissionValidator(
             AndroidSqlExecutor(
-                scratchDbPath = DemoScratchDb.ensure(context).path,
+                scratchDbPath = CaseSandbox.ensure(context, case).path,
                 readOnly = true,
-            ).execute("SELECT count(*) FROM produtos WHERE nome = 'Rato de borracha'")
-        if (r is SqlResult.Success) {
-            val count =
-                r.rows
-                    .firstOrNull()
-                    ?.firstOrNull()
-                    ?.toIntOrNull() ?: -1
-            if (ratPresent && count == 0) {
-                captured = true
-            }
-            ratPresent = count > 0
+            ),
+        )
+
+    LaunchedEffect(case.id) {
+        withContext(Dispatchers.IO) {
+            alreadyComplete = validator().isComplete(case)
         }
     }
 
     if (captured) {
-        RatCapturedDialog(onDismiss = { captured = false })
+        RatCapturedDialog(
+            onDismiss = { captured = false },
+            onNextMission = {
+                captured = false
+                onNavigate("missions")
+            },
+        )
     }
 
     Column(
@@ -85,43 +92,45 @@ fun LabScreen(modifier: Modifier = Modifier) {
                 .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        // Schema do banco ativo
+        // Briefing do caso
         Card(
             colors =
                 CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
                 ),
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 Text(
-                    text = stringResource(R.string.lab_schema_title),
+                    text = "${case.code} — ${case.title}",
                     style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    listOf("produtos", "clientes", "pedidos").forEach { table ->
-                        androidx.compose.material3.Surface(
-                            color = chips.tableBackground,
-                            shape = MaterialTheme.shapes.small,
-                        ) {
-                            Text(
-                                text = table,
-                                style = CodeTextStyle,
-                                color = chips.tableForeground,
-                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                            )
-                        }
-                    }
+                Text(
+                    text = case.briefing,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
+                )
+            }
+        }
+
+        // Schema do caso
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            case.tables.forEach { table ->
+                Surface(
+                    color = chips.tableBackground,
+                    shape = MaterialTheme.shapes.small,
+                ) {
+                    Text(
+                        text = table,
+                        style = CodeTextStyle,
+                        color = chips.tableForeground,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    )
                 }
             }
         }
 
         // Console SQL
-        Text(
-            text = stringResource(R.string.lab_console_title),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
         OutlinedTextField(
             value = sql,
             onValueChange = { sql = it },
@@ -138,12 +147,21 @@ fun LabScreen(modifier: Modifier = Modifier) {
                             result =
                                 withContext(Dispatchers.IO) {
                                     AndroidSqlExecutor(
-                                        scratchDbPath = DemoScratchDb.ensure(context).path,
+                                        scratchDbPath = CaseSandbox.ensure(context, case).path,
                                         readOnly = false,
                                     ).execute(sql)
                                 }
                             busy = false
-                            checkRat()
+                            if (!alreadyComplete &&
+                                withContext(Dispatchers.IO) { validator().isComplete(case) }
+                            ) {
+                                alreadyComplete = true
+                                captured = true
+                                scope.launch {
+                                    AppServices.progress.recordMissionCompleted(case.id, case.xpReward)
+                                    AppServices.progress.recordRatCaptured(case.id)
+                                }
+                            }
                         }
                     }
                 },
@@ -151,15 +169,28 @@ fun LabScreen(modifier: Modifier = Modifier) {
             ) {
                 Text(stringResource(R.string.lab_run))
             }
-            OutlinedButton(onClick = {
-                sql = ""
-                result = null
-            }) {
+            OutlinedButton(
+                onClick = {
+                    sql = ""
+                    result = null
+                },
+            ) {
                 Text(stringResource(R.string.lab_clear))
+            }
+            OutlinedButton(
+                onClick = {
+                    scope.launch {
+                        withContext(Dispatchers.IO) { CaseSandbox.reset(context, case) }
+                        result = null
+                        alreadyComplete = false
+                    }
+                },
+            ) {
+                Text(stringResource(R.string.lab_reset))
             }
         }
 
-        // Resultado — estado vazio honesto
+        // Resultado
         Card(
             colors =
                 CardDefaults.cardColors(
