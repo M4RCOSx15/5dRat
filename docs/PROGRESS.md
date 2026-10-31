@@ -119,3 +119,25 @@
 - LabScreen detecta captura via mini-validador de estado: após cada execução,
   SELECT count(*) confere se o rato sumiu do sandbox (estado, não SQL) → popup.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — Fixes de UX reportados em teste no device
+- Missões: ícone play virou IconButton → navega ao Laboratório.
+- LabScreen: checagem inicial do rato na abertura (LaunchedEffect) — popup
+  só dispara na transição presente→ausente, não em qualquer query com rato
+  já morto (bug do SELECT default reportado).
+- RatCapturedDialog: botão "Próxima missão" em tertiaryContainer (verde
+  suave do tema) abaixo do vídeo → navega a Missões.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M8: loop jogável completo (em revisão)
+- domain/mission: Campaign com 3 casos reais (schema+seed+objectiveSql+XP);
+  MissionValidator confere estado final via executor readonly.
+- data/sql/CaseSandbox: sandbox {caseId}.db por caso + reset. AppServices:
+  DI manual (repo progresso + caso ativo).
+- LabScreen: briefing do caso, chips de tabelas, executa no sandbox do caso,
+  valida objetivo → popup de captura → registra missão+rato no repositório.
+- MissionsScreen: campanha real, desbloqueio por completadas (índice<=n),
+  CheckCircle em concluídas, play seleciona caso → lab.
+- Merge de fixes m7 não-mergeados (PR #10 foi antes do push b9ea1b8):
+  conflitos resolvidos mantendo reescritas M8.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.

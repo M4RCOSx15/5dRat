@@ -11,37 +11,39 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.fivedrat.R
+import com.fivedrat.data.AppServices
+import com.fivedrat.domain.PlayerProgress
+import com.fivedrat.domain.mission.Campaign
+import com.fivedrat.domain.mission.Case
 
-/** Caso disponível para seleção. Conteúdo real do jogo — migra ao domínio na M6. */
-private data class MissionCard(
-    val code: String,
-    val title: String,
-    val locked: Boolean,
-)
-
-// Lista estática dos casos da campanha — M6 lê o progresso real e o bloqueio dinâmico.
-private val missions =
-    listOf(
-        MissionCard("CASE_001", "O rato no inventário", locked = false),
-        MissionCard("CASE_002", "Identidade falsa", locked = false),
-        MissionCard("CASE_003", "Cúmplices no banco", locked = true),
-    )
-
+/**
+ * Casos reais da campanha: desbloqueio por progresso (índice > completadas
+ * fica bloqueado), play seleciona o caso e navega ao Laboratório.
+ */
 @Composable
-fun MissionsScreen(modifier: Modifier = Modifier) {
+fun MissionsScreen(
+    onNavigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val progress by AppServices.progress.progress.collectAsState(initial = PlayerProgress.Empty)
+
     Column(
         modifier =
             modifier
@@ -56,28 +58,44 @@ fun MissionsScreen(modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.primary,
         )
         Text(
-            text = stringResource(R.string.missions_available, missions.count { !it.locked }),
+            text =
+                stringResource(
+                    R.string.missions_available,
+                    Campaign.cases.countIndexed { i -> i <= progress.missionsCompleted },
+                ),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
 
-        missions.forEach { mission ->
-            MissionItem(mission)
+        Campaign.cases.forEachIndexed { index, case ->
+            val completed = index < progress.missionsCompleted
+            val unlocked = index <= progress.missionsCompleted
+            MissionItem(
+                case = case,
+                completed = completed,
+                unlocked = unlocked,
+                onPlay = {
+                    AppServices.activeCaseId = case.id
+                    onNavigate("lab")
+                },
+            )
         }
     }
 }
 
+private inline fun <T> List<T>.countIndexed(predicate: (Int) -> Boolean): Int = indices.count(predicate)
+
 @Composable
-private fun MissionItem(mission: MissionCard) {
+private fun MissionItem(
+    case: Case,
+    completed: Boolean,
+    unlocked: Boolean,
+    onPlay: () -> Unit,
+) {
     Card(
         colors =
             CardDefaults.cardColors(
-                containerColor =
-                    if (mission.locked) {
-                        MaterialTheme.colorScheme.surfaceContainerHigh
-                    } else {
-                        MaterialTheme.colorScheme.surfaceContainerLowest
-                    },
+                containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             ),
     ) {
         Row(
@@ -89,37 +107,44 @@ private fun MissionItem(mission: MissionCard) {
         ) {
             Column(modifier = Modifier.weight(1f)) {
                 Text(
-                    text = mission.code,
+                    text = case.code,
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
                 Text(
-                    text = mission.title,
+                    text = case.title,
                     style = MaterialTheme.typography.headlineSmall,
                     color =
-                        if (mission.locked) {
-                            MaterialTheme.colorScheme.onSurfaceVariant
-                        } else {
+                        if (unlocked) {
                             MaterialTheme.colorScheme.onSurface
+                        } else {
+                            MaterialTheme.colorScheme.onSurfaceVariant
                         },
                 )
             }
             Spacer(Modifier.width(8.dp))
-            Icon(
-                imageVector = if (mission.locked) Icons.Default.Lock else Icons.Default.PlayArrow,
-                contentDescription =
-                    if (mission.locked) {
-                        stringResource(R.string.missions_locked)
-                    } else {
-                        stringResource(R.string.missions_open)
-                    },
-                tint =
-                    if (mission.locked) {
-                        MaterialTheme.colorScheme.outline
-                    } else {
-                        MaterialTheme.colorScheme.primary
-                    },
-            )
+            when {
+                completed ->
+                    Icon(
+                        imageVector = Icons.Default.CheckCircle,
+                        contentDescription = stringResource(R.string.missions_done),
+                        tint = MaterialTheme.colorScheme.tertiary,
+                    )
+                !unlocked ->
+                    Icon(
+                        imageVector = Icons.Default.Lock,
+                        contentDescription = stringResource(R.string.missions_locked),
+                        tint = MaterialTheme.colorScheme.outline,
+                    )
+                else ->
+                    IconButton(onClick = onPlay) {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = stringResource(R.string.missions_open),
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+            }
         }
     }
 }
