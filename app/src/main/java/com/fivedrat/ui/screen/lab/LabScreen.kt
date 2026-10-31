@@ -42,7 +42,10 @@ import kotlinx.coroutines.withContext
  * e mostra estado vazio honesto — sem resultados ilustrativos (P8).
  */
 @Composable
-fun LabScreen(modifier: Modifier = Modifier) {
+fun LabScreen(
+    onNavigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     var sql by remember { mutableStateOf("SELECT * FROM produtos LIMIT 10;") }
     var result by remember { mutableStateOf<SqlResult?>(null) }
     var busy by remember { mutableStateOf(false) }
@@ -73,8 +76,34 @@ fun LabScreen(modifier: Modifier = Modifier) {
         }
     }
 
+    // Estado inicial real do sandbox na abertura — popup só quando o rato
+    // transita presente→ausente numa execução desta sessão.
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO) {
+            val r =
+                AndroidSqlExecutor(
+                    scratchDbPath = DemoScratchDb.ensure(context).path,
+                    readOnly = true,
+                ).execute("SELECT count(*) FROM produtos WHERE nome = 'Rato de borracha'")
+            if (r is SqlResult.Success) {
+                ratPresent = (
+                    r.rows
+                        .firstOrNull()
+                        ?.firstOrNull()
+                        ?.toIntOrNull() ?: 0
+                ) > 0
+            }
+        }
+    }
+
     if (captured) {
-        RatCapturedDialog(onDismiss = { captured = false })
+        RatCapturedDialog(
+            onDismiss = { captured = false },
+            onNextMission = {
+                captured = false
+                onNavigate("missions")
+            },
+        )
     }
 
     Column(
