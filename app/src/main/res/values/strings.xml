@@ -30,5 +30,6 @@
     <string name="lab_run">Executar consulta</string>
     <string name="lab_clear">Limpar</string>
     <string name="lab_result_title">Resultado</string>
-    <string name="lab_result_empty">O motor SQL chega na M7 — resultado aparecerá aqui.</string>
+    <string name="lab_result_empty">Execute uma consulta para ver o resultado aqui.</string>
+    <string name="lab_result_rows">%1$d linhas retornadas</string>
 </resources>

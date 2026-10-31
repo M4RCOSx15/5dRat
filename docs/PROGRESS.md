@@ -91,3 +91,23 @@
   telas; persistência Room/DataStore permanece na M6 (KSP/versões a fixar).
 - Testes JVM do domínio: 3/3 verdes (idempotência, contagem, nível por XP).
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — M6 aprovada (PR #8 merge) + M7: motor SQL (em revisão)
+- domain/sql/SqlExecutor: contrato Kotlin-puro com SqlResult selado
+  (Success/Blocked/Error).
+- data/sql/SqlGate: portão de instrução única — ATTACH/DETACH/PRAGMA/VACUUM
+  bloqueados (vetor provado no spike M1c), modo readOnly restringe a SELECT,
+  literais/comentários neutralizados, multi-statement rejeitado, limite de
+  8KB. Kotlin puro, 9 testes JVM verdes.
+- data/sql/AndroidSqlExecutor: executor real sobre arquivo scratch via
+  SQLiteDatabase (OPEN_READONLY em modo consulta), maxRows=500, erros
+  mapeados — nunca toca o banco de progresso.
+- Pendente nesta M7: ScenarioGenerator/seeds, MissionValidator, fiação do
+  LabScreen ao executor e validação de integridade do scratch.
+
+## 2026-10-30 — M7 fiação: LabScreen executa SQL real + README
+- LabScreen conectado ao AndroidSqlExecutor: botão Executar roda no sandbox
+  DemoScratchDb (loja_demo.db em filesDir, seed produtos/clientes/pedidos) em
+  Dispatchers.IO; resultado mostra colunas/linhas, Blocked/Error mapeados.
+- README.md criado: status do MVP, build/teste, resumo da arquitetura.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.

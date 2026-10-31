@@ -19,13 +19,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.fivedrat.R
+import com.fivedrat.data.sql.AndroidSqlExecutor
+import com.fivedrat.data.sql.DemoScratchDb
+import com.fivedrat.domain.sql.SqlResult
 import com.fivedrat.ui.theme.CodeTextStyle
 import com.fivedrat.ui.theme.LocalSemanticChipColors
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Tela Laboratório (M4) — console SQL do protótipo `5drat_laborat_rio`.
@@ -35,6 +43,10 @@ import com.fivedrat.ui.theme.LocalSemanticChipColors
 @Composable
 fun LabScreen(modifier: Modifier = Modifier) {
     var sql by remember { mutableStateOf("SELECT * FROM produtos LIMIT 10;") }
+    var result by remember { mutableStateOf<SqlResult?>(null) }
+    var busy by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     val chips = LocalSemanticChipColors.current
 
     Column(
@@ -90,10 +102,30 @@ fun LabScreen(modifier: Modifier = Modifier) {
             minLines = 4,
         )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = { /* execução real na M7 */ }) {
+            Button(
+                onClick = {
+                    if (!busy) {
+                        busy = true
+                        scope.launch {
+                            result =
+                                withContext(Dispatchers.IO) {
+                                    AndroidSqlExecutor(
+                                        scratchDbPath = DemoScratchDb.ensure(context).path,
+                                        readOnly = false,
+                                    ).execute(sql)
+                                }
+                            busy = false
+                        }
+                    }
+                },
+                enabled = !busy,
+            ) {
                 Text(stringResource(R.string.lab_run))
             }
-            OutlinedButton(onClick = { sql = "" }) {
+            OutlinedButton(onClick = {
+                sql = ""
+                result = null
+            }) {
                 Text(stringResource(R.string.lab_clear))
             }
         }
@@ -111,11 +143,45 @@ fun LabScreen(modifier: Modifier = Modifier) {
                     style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.secondary,
                 )
-                Text(
-                    text = stringResource(R.string.lab_result_empty),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
+                when (val r = result) {
+                    null ->
+                        Text(
+                            text = stringResource(R.string.lab_result_empty),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    is SqlResult.Success -> {
+                        Text(
+                            text = stringResource(R.string.lab_result_rows, r.rows.size),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.secondary,
+                        )
+                        Text(
+                            text = r.columns.joinToString(" | "),
+                            style = CodeTextStyle,
+                            color = MaterialTheme.colorScheme.primary,
+                        )
+                        r.rows.take(10).forEach { row ->
+                            Text(
+                                text = row.joinToString(" | ") { it ?: "NULL" },
+                                style = CodeTextStyle,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
+                    is SqlResult.Blocked ->
+                        Text(
+                            text = r.reason,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                    is SqlResult.Error ->
+                        Text(
+                            text = r.message,
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.error,
+                        )
+                }
             }
         }
     }
