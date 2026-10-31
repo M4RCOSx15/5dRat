@@ -119,3 +119,12 @@
 - LabScreen detecta captura via mini-validador de estado: após cada execução,
   SELECT count(*) confere se o rato sumiu do sandbox (estado, não SQL) → popup.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — Fixes de UX reportados em teste no device
+- Missões: ícone play virou IconButton → navega ao Laboratório.
+- LabScreen: checagem inicial do rato na abertura (LaunchedEffect) — popup
+  só dispara na transição presente→ausente, não em qualquer query com rato
+  já morto (bug do SELECT default reportado).
+- RatCapturedDialog: botão "Próxima missão" em tertiaryContainer (verde
+  suave do tema) abaixo do vídeo → navega a Missões.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
