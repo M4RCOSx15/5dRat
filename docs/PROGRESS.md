@@ -111,3 +111,11 @@
   Dispatchers.IO; resultado mostra colunas/linhas, Blocked/Error mapeados.
 - README.md criado: status do MVP, build/teste, resumo da arquitetura.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-10-30 — Popup de captura: aranha rato pixel art (M7 fiação)
+- RatCapturedDialog: Dialog centrado (~85% largura) com VideoView built-in
+  reproduzindo aranha_rato_pixelart.mp4 (res/raw, loop) — sem dependência
+  de player pesado (P4). Fecha em Confirmar/fora.
+- LabScreen detecta captura via mini-validador de estado: após cada execução,
+  SELECT count(*) confere se o rato sumiu do sandbox (estado, não SQL) → popup.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
