@@ -154,3 +154,14 @@
 - HomeScreen: missão atual = primeiro caso incompleto, XP/nível reais,
   botão adapta (Continuar missão → lab do caso | Rever casos → missões).
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-11-02 — M9 aprovada (PR #13) + M10: ScenarioGenerator determinístico
+- domain/mission/ScenarioGenerator: fronteira — seedSql(case, runSeed).
+- DeterministicScenarioGenerator (kotlin.random.Random(seed)): variantes
+  de itens/nomes/ordem/quantidade por caso; alvo do objectiveSql preservado
+  (CPF/ordem variam, nome alvo fixo — objetivo dinâmico fica p/ variante
+  futura). Fallback para seed estático em caso desconhecido.
+- CaseSandbox gera seed via generator com runSeed gravada em _meta; reset
+  recria com runSeed nova (variante diferente a cada reset).
+- Testes JVM: 4/4 — determinismo, variação entre seeds, alvo presente,
+  fallback. Verificações: ktlintCheck, assembleDebug, testDebugUnitTest.
