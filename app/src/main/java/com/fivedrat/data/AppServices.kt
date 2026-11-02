@@ -1,14 +1,19 @@
 package com.fivedrat.data
 
+import android.content.Context
+import com.fivedrat.data.progress.SqliteProgressRepository
 import com.fivedrat.domain.ProgressRepository
 import com.fivedrat.domain.mission.Campaign
 
 /**
- * Composição manual (DI simples — ADR-002): repositório de progresso
- * compartilhado e caso ativo selecionado na tela de Missões.
- * Progresso é em memória por ora — persistência real na continuação da M6.
+ * Composição manual (DI simples — ADR-002): repositório de progresso real
+ * (SQLite) e caso ativo selecionado na tela de Missões.
  */
 object AppServices {
-    val progress: ProgressRepository = InMemoryProgressRepository()
+    private var cached: ProgressRepository? = null
+
+    fun progress(context: Context): ProgressRepository =
+        cached ?: SqliteProgressRepository(context.applicationContext).also { cached = it }
+
     var activeCaseId: String = Campaign.cases.first().id
 }
