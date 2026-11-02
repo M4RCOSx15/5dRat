@@ -10,6 +10,9 @@
     <string name="home_mission_name">O rato no inventário</string>
     <string name="home_mission_sql_hint">SELECT * FROM inventory WHERE anomaly = true;</string>
     <string name="home_continue_mission">Continuar missão</string>
+    <string name="home_review_cases">Rever casos</string>
+    <string name="home_campaign_done">Campanha concluída!</string>
+    <string name="home_progress">Nível %1$d · %2$d XP</string>
     <string name="home_shortcuts">Atalhos</string>
     <string name="home_new_mission">Nova missão</string>
     <string name="home_train_sql">Treinar SQL</string>
@@ -24,9 +27,11 @@
     <string name="profile_avatar_cd">Avatar do investigador robot_001</string>
     <string name="profile_division">MEMBRO DA DIVISÃO 5DRAT</string>
     <string name="profile_evolution">Sua evolução</string>
-    <string name="profile_level_placeholder">Nível 01 · Investigador iniciante — XP em breve</string>
+    <string name="profile_level">Nível %1$d · Investigador</string>
+    <string name="profile_xp">%1$d XP acumulado</string>
     <string name="profile_history">Seu histórico de caça</string>
-    <string name="profile_metrics_placeholder">Métricas reais em breve — ainda sem dados de progresso.</string>
+    <string name="profile_cases">Casos resolvidos: %1$d de %2$d</string>
+    <string name="profile_rats">Ratos capturados: %1$d</string>
     <string name="lab_schema_title">Schema — loja_demo.db</string>
     <string name="lab_console_title">Console SQL</string>
     <string name="lab_run">Executar consulta</string>
