@@ -141,3 +141,10 @@
 - Merge de fixes m7 não-mergeados (PR #10 foi antes do push b9ea1b8):
   conflitos resolvidos mantendo reescritas M8.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-11-01 — M8 aprovada (PR #11) + persistência real de progresso
+- SqliteProgressRepository: progress.db com mission_events idempotente
+  (INSERT OR IGNORE por mission_id+kind), agregação para xp/level/completed/
+  rats — progresso agora SOBREVIVE a reinício do app (ADR-011).
+- AppServices.progress(context) lazy; telas usam o repo real.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.

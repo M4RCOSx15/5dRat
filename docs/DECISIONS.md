@@ -89,3 +89,13 @@ Formato: contexto → decisão → alternativas → consequências.
   exigir ou quando houver ganho real).
 - **Consequências:** foundation compila e linta na SDK 36; upgrade do BOM
   avaliado junto com a decisão do compileSdk.
+
+## ADR-011 — Progresso em SQLite puro (não Room) — 2026-11-01
+Contexto: persistir progresso exige Room (anunciado na M6) + KSP casado com
+Kotlin 2.4.x; a versão de KSP compatível não foi resolvida com segurança e
+adicionar um processador de anotações só para 1 tabela é peso desmedido.
+Decisão: `SqliteProgressRepository` usa android.database.sqlite direto —
+progress.db separado dos sandboxes, eventos idempotentes por (mission_id,
+kind), progresso derivado por agregação. Zero deps novas.
+Consequências: revisitar Room se o esquema de progresso crescer (perfis,
+conquistas complexas); o contrato ProgressRepository já isola a troca.

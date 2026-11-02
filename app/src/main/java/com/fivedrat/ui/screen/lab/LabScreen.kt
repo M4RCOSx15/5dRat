@@ -160,8 +160,12 @@ fun LabScreen(
                                 alreadyComplete = true
                                 captured = true
                                 scope.launch {
-                                    AppServices.progress.recordMissionCompleted(case.id, case.xpReward)
-                                    AppServices.progress.recordRatCaptured(case.id)
+                                    AppServices
+                                        .progress(context)
+                                        .recordMissionCompleted(case.id, case.xpReward)
+                                    AppServices
+                                        .progress(context)
+                                        .recordRatCaptured(case.id)
                                 }
                             }
                         }
