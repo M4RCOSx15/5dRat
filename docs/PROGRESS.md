@@ -148,3 +148,9 @@
   rats — progresso agora SOBREVIVE a reinício do app (ADR-011).
 - AppServices.progress(context) lazy; telas usam o repo real.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-11-01 — m6b aprovada (PR #12) + M9: UI viva com progresso real
+- ProfileScreen: nível/XP/casos/ratos reais via ProgressRepository + Campaign.
+- HomeScreen: missão atual = primeiro caso incompleto, XP/nível reais,
+  botão adapta (Continuar missão → lab do caso | Rever casos → missões).
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.

@@ -15,16 +15,22 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.fivedrat.R
+import com.fivedrat.data.AppServices
+import com.fivedrat.domain.PlayerProgress
+import com.fivedrat.domain.mission.Campaign
 
 /**
  * Tela Perfil (M5) — baseada no protótipo `5drat_perfil`.
@@ -64,9 +70,20 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
 
+        val context = LocalContext.current
+        val progress by AppServices
+            .progress(context)
+            .progress
+            .collectAsState(initial = PlayerProgress.Empty)
+
         SectionCard(title = stringResource(R.string.profile_evolution)) {
             Text(
-                text = stringResource(R.string.profile_level_placeholder),
+                text = stringResource(R.string.profile_level, progress.level),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+            Text(
+                text = stringResource(R.string.profile_xp, progress.xp),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -74,7 +91,17 @@ fun ProfileScreen(modifier: Modifier = Modifier) {
 
         SectionCard(title = stringResource(R.string.profile_history)) {
             Text(
-                text = stringResource(R.string.profile_metrics_placeholder),
+                text =
+                    stringResource(
+                        R.string.profile_cases,
+                        progress.missionsCompleted,
+                        Campaign.cases.size,
+                    ),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            Text(
+                text = stringResource(R.string.profile_rats, progress.ratsCaptured),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
