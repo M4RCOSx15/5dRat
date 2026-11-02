@@ -20,8 +20,8 @@ debug/previews). M6 pode rodar em paralelo às telas.
 | M6 | Persistência e domínio | ✅ Concluída | m6/persistence-domain | M1a |
 | M7 | Motor SQL isolado | ✅ Concluída | m7/sql-sandbox | M1c, M6 |
 | M8 | Primeira missão: "O rato no inventário" | 🔄 Em andamento | m8/first-mission | M7, M3 |
-| M9 | Progressão e recompensas | 🔄 Em andamento | m9/progression | M6, M8 |
-| M10 | Gerador procedural determinístico | ⬜ Pendente | m10/scenario-generator | M7 |
+| M9 | Progressão e recompensas | ✅ Concluída | m9/progression | M6, M8 |
+| M10 | Gerador procedural determinístico | 🔄 Em andamento | m10/scenario-generator | M7 |
 | M11 | Preparação para LLM local | ⬜ Pendente | m11/local-llm-spike | M10 |
 | M12 | Integração controlada de IA (se M11 justificar) | ⬜ Pendente | m12/llm-integration | M11 |
 | M13 | Hardening e entrega | ⬜ Pendente | m13/hardening | todas |
