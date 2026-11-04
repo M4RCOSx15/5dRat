@@ -99,3 +99,12 @@ progress.db separado dos sandboxes, eventos idempotentes por (mission_id,
 kind), progresso derivado por agregação. Zero deps novas.
 Consequências: revisitar Room se o esquema de progresso crescer (perfis,
 conquistas complexas); o contrato ProgressRepository já isola a troca.
+
+## ADR-012 — LLM local: viável mas condicional — 2026-11-02
+Contexto: M11 avaliou IA on-device para sabor narrativo mantendo a premissa
+offline. Achados em docs/LLM-SPIKE.md.
+Decisão: registrar que LiteRT-LM (não MediaPipe, maintenance-only) é a rota
+técnica correta, mas a premissa sem INTERNET impõe modelo embutido — só
+Gemma 3 270M (~300MB) é leve, com qualidade pt-BR fraca-mediana. M12 fica
+condicional: se avançar, em build variant "ai" opcional e SOMENTE para
+narrativa — dados do jogo seguem determinísticos (M10 + validador).

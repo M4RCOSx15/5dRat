@@ -165,3 +165,11 @@
   recria com runSeed nova (variante diferente a cada reset).
 - Testes JVM: 4/4 — determinismo, variação entre seeds, alvo presente,
   fallback. Verificações: ktlintCheck, assembleDebug, testDebugUnitTest.
+
+## 2026-11-02 — M10 aprovada (PR #14) + M11: spike LLM local (em revisão)
+- docs/LLM-SPIKE.md: LiteRT-LM é o sucessor oficial (MediaPipe em
+  maintenance); Gemma 3 270M (~300MB) único leve para APK embutido sob
+  premissa offline; runtime não roda em emulador.
+- ADR-012: M12 condicional — se avançar, variante "ai" opcional e só para
+  narrativa; mecânica segue determinística.
+- Sem código novo (spike de análise).
