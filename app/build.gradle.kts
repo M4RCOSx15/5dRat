@@ -28,7 +28,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false // R8 e ofuscacao: decididos na M13 (hardening)
+            isMinifyEnabled = true
+            isShrinkResources = true
         }
     }
 
@@ -46,6 +47,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+}
+
+// O plugin compose solicita compose-group-mapping:2.2.10 (inexistente nos
+// repos); força a 2.4.21, casada com o Kotlin do projeto (ADR-005).
+configurations.matching { it.name.contains("composeMappingProducerClasspath") }.configureEach {
+    resolutionStrategy.force("org.jetbrains.kotlin:compose-group-mapping:2.4.21")
 }
 
 dependencies {
