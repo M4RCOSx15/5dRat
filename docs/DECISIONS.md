@@ -108,3 +108,11 @@ técnica correta, mas a premissa sem INTERNET impõe modelo embutido — só
 Gemma 3 270M (~300MB) é leve, com qualidade pt-BR fraca-mediana. M12 fica
 condicional: se avançar, em build variant "ai" opcional e SOMENTE para
 narrativa — dados do jogo seguem determinísticos (M10 + validador).
+
+## ADR-013 — R8 + shrink em release; allowBackup mantido — 2026-11-06
+Decisão: release usa isMinifyEnabled+isShrinkResources (proteção básica de
+engenharia reversa sobre seeds/regras e APK menor — 1,4MB). O mapping do
+compose foi forçado a 2.4.21 (plugin pedia 2.2.10 inexistente).
+allowBackup=true mantido definitivamente (encerra provisório do ADR-008):
+dados de jogo não-sensíveis; backup preserva progresso em troca de aparelho.
+Pendente de entrega: keystore de release (fora do VCS por política).
