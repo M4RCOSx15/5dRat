@@ -24,7 +24,7 @@ debug/previews). M6 pode rodar em paralelo às telas.
 | M10 | Gerador procedural determinístico | 🔄 Em andamento | m10/scenario-generator | M7 |
 | M11 | Preparação para LLM local | ⬜ Pendente | m11/local-llm-spike | M10 |
 | M12 | Integração controlada de IA (se M11 justificar) | ⬜ Pendente | m12/llm-integration | M11 |
-| M13 | Hardening e entrega | ⬜ Pendente | m13/hardening | todas |
+| M13 | Hardening e entrega | 🔄 Em andamento | m13/hardening | todas |
 
 ## Decisões pendentes resolvidas na M0
 - Tokens de design: escala Material 3 dos protótipos + acentos do DESIGN.md
