@@ -173,3 +173,11 @@
 - ADR-012: M12 condicional — se avançar, variante "ai" opcional e só para
   narrativa; mecânica segue determinística.
 - Sem código novo (spike de análise).
+
+## 2026-11-06 — M11 aprovada (PR #15) + M13: hardening e revisão MASVS
+- docs/MASVS-REVIEW.md: checklist por categoria — storage privado ok, rede
+  N/A (sem INTERNET), plataforma só LAUNCHER, zero Log, deps mínimas.
+- R8+shrinkResources ativados; fix compose-group-mapping→2.4.21 (plugin
+  pedia 2.2.10 inexistente). app-release-unsigned.apk: 1,4MB.
+- ADR-013: allowBackup definitivo; único pendente real = keystore release.
+- Verificações: ktlintCheck, assembleDebug, assembleRelease, testes — verde.
