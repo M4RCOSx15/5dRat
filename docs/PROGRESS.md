@@ -181,3 +181,15 @@
   pedia 2.2.10 inexistente). app-release-unsigned.apk: 1,4MB.
 - ADR-013: allowBackup definitivo; único pendente real = keystore release.
 - Verificações: ktlintCheck, assembleDebug, assembleRelease, testes — verde.
+
+## 2026-11-06 — Fix: navegação entre destinos (bug reportado no device)
+- Padrão único navigateTopLevel (popUpTo+saveState+singleTop+restoreState)
+  aplicado à bottom bar E aos atalhos internos — antes os atalhos usavam
+  navigate puro e empilhavam rotas de forma inconsistente.
+- CaseSandbox.ensure movido para LaunchedEffect/IO (I/O no corpo da
+  composição era executado na main thread a cada recompose).
+- NavigationFlowTest (androidTest): cobre as 12 transições entre os 4
+  destinos + lab→home e lab→profile/missões — roda com
+  connectedDebugAndroidTest (requer emulador/dispositivo).
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+  Fluxo instrumentado escrito mas NÃO executado local (sem emulador).
