@@ -1,16 +1,44 @@
+@file:OptIn(ExperimentalTextApi::class)
+
 package com.fivedrat.ui.theme
 
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.fivedrat.R
 
 // Escala tipográfica dos protótipos (docs/PROTOTYPES.md).
-// TODO(fonts): embarcar Plus Jakarta Sans (UI) e JetBrains Mono (código) —
-//   ambas OFL; fonte system enquanto os arquivos não entram no res/font.
-val UiFontFamily = FontFamily.Default
-val CodeFontFamily = FontFamily.Monospace
+// Fontes embarcadas OFL em res/font: Plus Jakarta Sans (UI, variável wght)
+// e JetBrains Mono (código, variável wght) — pesos via FontVariation.
+private fun jakarta(weight: Int) =
+    Font(
+        R.font.plusjakartasans_variable,
+        variationSettings = FontVariation.Settings(FontVariation.weight(weight)),
+    )
+
+private fun jetbrains(weight: Int) =
+    Font(
+        R.font.jetbrainsmono_variable,
+        variationSettings = FontVariation.Settings(FontVariation.weight(weight)),
+    )
+
+val UiFontFamily =
+    FontFamily(
+        jakarta(400),
+        jakarta(500),
+        jakarta(600),
+        jakarta(700),
+    )
+val CodeFontFamily =
+    FontFamily(
+        jetbrains(400),
+        jetbrains(600),
+    )
 
 val AppTypography =
     Typography(
