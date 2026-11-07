@@ -70,5 +70,6 @@ dependencies {
     testImplementation(libs.sqlite.jdbc)
 
     androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(platform(libs.compose.bom))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 }
