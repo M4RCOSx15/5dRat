@@ -193,3 +193,10 @@
   connectedDebugAndroidTest (requer emulador/dispositivo).
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
   Fluxo instrumentado escrito mas NÃO executado local (sem emulador).
+
+## 2026-11-07 — fix/nav-flows aprovada (PR #17) + fontes embarcadas
+- Fontes reais OFL em res/font: Plus Jakarta Sans (variável wght, UI) e
+  JetBrains Mono (variável wght, código SQL). Type.kt usa FontVariation
+  para pesos (400/500/600/700 UI; 400/600 código) com @file:OptIn
+  ExperimentalTextApi. Remove TODO(fonts) — identidade tipográfica real.
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
