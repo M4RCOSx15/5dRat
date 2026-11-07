@@ -63,10 +63,13 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.navigation.compose)
     debugImplementation(libs.compose.ui.tooling)
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     testImplementation(libs.junit)
     // Spike M1c — JDBC apenas em teste JVM; o motor real usa android.database.sqlite
     testImplementation(libs.sqlite.jdbc)
 
     androidTestImplementation(libs.androidx.test.junit)
+    androidTestImplementation(platform(libs.compose.bom))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 }

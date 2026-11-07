@@ -70,8 +70,11 @@ fun LabScreen(
             ),
         )
 
+    // Sandbox do caso criado fora do corpo da composição (I/O na main
+    // thread a cada recompose era o padrão anterior — bug de performance).
     LaunchedEffect(case.id) {
         withContext(Dispatchers.IO) {
+            CaseSandbox.ensure(context, case)
             alreadyComplete = validator().isComplete(case)
         }
     }

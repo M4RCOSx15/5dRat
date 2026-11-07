@@ -30,21 +30,26 @@ fun FiveDRatApp() {
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route
 
+        // Padrão único para TODA navegação entre destinos raiz (bottom bar e
+        // atalhos internos): popUpTo+saveState+restoreState mantém volta
+        // consistente; atalhos não empilham rotas por cima de si mesmas.
+        fun navigateTopLevel(route: String) {
+            navController.navigate(route) {
+                popUpTo(navController.graph.findStartDestination().id) {
+                    saveState = true
+                }
+                launchSingleTop = true
+                restoreState = true
+            }
+        }
+
         Scaffold(
             bottomBar = {
                 NavigationBar {
                     AppDestination.entries.forEach { destination ->
                         NavigationBarItem(
                             selected = currentRoute == destination.route,
-                            onClick = {
-                                navController.navigate(destination.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            },
+                            onClick = { navigateTopLevel(destination.route) },
                             icon = {
                                 Icon(
                                     imageVector = destination.icon,
@@ -66,11 +71,11 @@ fun FiveDRatApp() {
                     composable(destination.route) {
                         when (destination) {
                             AppDestination.Home ->
-                                HomeScreen(onNavigate = { route -> navController.navigate(route) })
+                                HomeScreen(onNavigate = { route -> navigateTopLevel(route) })
                             AppDestination.Missions ->
-                                MissionsScreen(onNavigate = { route -> navController.navigate(route) })
+                                MissionsScreen(onNavigate = { route -> navigateTopLevel(route) })
                             AppDestination.Lab ->
-                                LabScreen(onNavigate = { route -> navController.navigate(route) })
+                                LabScreen(onNavigate = { route -> navigateTopLevel(route) })
                             AppDestination.Profile ->
                                 ProfileScreen()
                             else ->
