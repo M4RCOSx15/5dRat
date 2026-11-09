@@ -200,3 +200,8 @@
   para pesos (400/500/600/700 UI; 400/600 código) com @file:OptIn
   ExperimentalTextApi. Remove TODO(fonts) — identidade tipográfica real.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-11-09 — PLAN.md sincronizado com merges reais
+- Status corrigidos p/ ✅: M1c, M8, M10, M11, M13; branches corrigidos
+  (m7/sql-engine, m8/campaign-loop, m9/live-progress-ui). Única pendente:
+  M12 (condicional — spike recomendou pular).
