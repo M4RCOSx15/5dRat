@@ -32,7 +32,6 @@
     <string name="profile_history">Seu histórico de caça</string>
     <string name="profile_cases">Casos resolvidos: %1$d de %2$d</string>
     <string name="profile_rats">Ratos capturados: %1$d</string>
-    <string name="lab_schema_title">Schema — loja_demo.db</string>
     <string name="lab_console_title">Console SQL</string>
     <string name="lab_run">Executar consulta</string>
     <string name="lab_clear">Limpar</string>
