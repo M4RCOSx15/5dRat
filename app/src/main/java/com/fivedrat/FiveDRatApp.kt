@@ -16,7 +16,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fivedrat.ui.navigation.AppDestination
-import com.fivedrat.ui.screen.PlaceholderScreen
 import com.fivedrat.ui.screen.home.HomeScreen
 import com.fivedrat.ui.screen.lab.LabScreen
 import com.fivedrat.ui.screen.missions.MissionsScreen
@@ -78,8 +77,6 @@ fun FiveDRatApp() {
                                 LabScreen(onNavigate = { route -> navigateTopLevel(route) })
                             AppDestination.Profile ->
                                 ProfileScreen()
-                            else ->
-                                PlaceholderScreen(title = stringResource(destination.labelRes))
                         }
                     }
                 }
