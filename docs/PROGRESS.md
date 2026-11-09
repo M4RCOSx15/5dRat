@@ -200,3 +200,10 @@
   para pesos (400/500/600/700 UI; 400/600 código) com @file:OptIn
   ExperimentalTextApi. Remove TODO(fonts) — identidade tipográfica real.
 - Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
+
+## 2026-11-07 — polish/embedded-fonts aprovada (PR #18) + limpeza
+- Removido DemoScratchDb.kt (código morto: Lab usa CaseSandbox desde M8) e
+  string lab_schema_title órfã. .gitignore cobre gradle-daemon-jvm.properties.
+- Achados do spike M1c já estão na main via SECURITY.md — branch spike
+  pode ser descartada sem perda (decisão do usuário).
+- Verificações: ktlintCheck, assembleDebug, testDebugUnitTest — verde.
