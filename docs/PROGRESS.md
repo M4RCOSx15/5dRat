@@ -205,3 +205,8 @@
 - Status corrigidos p/ ✅: M1c, M8, M10, M11, M13; branches corrigidos
   (m7/sql-engine, m8/campaign-loop, m9/live-progress-ui). Única pendente:
   M12 (condicional — spike recomendou pular).
+
+## 2026-11-09 — docs-sync aprovada (PR #19) + limpeza de placeholders
+- Removido PlaceholderScreen.kt (fallback inalcançável — todos os destinos
+  têm telas reais), import/else em FiveDRatApp, string placeholder_coming_soon
+  e docstring velha de AppDestination. Verificações: verde.
