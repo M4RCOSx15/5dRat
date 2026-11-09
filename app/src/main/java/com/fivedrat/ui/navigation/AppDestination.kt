@@ -10,8 +10,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.fivedrat.R
 
 /**
- * Destinos raiz da navegação. As telas reais chegam nas microtasks
- * M2 (Início), M3 (Missões), M4 (Laboratório) e M5 (Perfil).
+ * Destinos raiz da navegação — todos com telas reais (Início, Missões,
+ * Laboratório, Perfil).
  */
 enum class AppDestination(
     val route: String,
