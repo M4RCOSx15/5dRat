@@ -37,6 +37,9 @@
     <string name="lab_clear">Limpar</string>
     <string name="lab_result_title">Resultado</string>
     <string name="lab_result_empty">Execute uma consulta para ver o resultado aqui.</string>
+    <string name="lab_ai_briefing">Gerar briefing com IA</string>
+    <string name="lab_ai_briefing_ai">Texto gerado pela IA local (on-device)</string>
+    <string name="lab_ai_briefing_fallback">Modelo de IA ausente — texto de reserva</string>
     <string name="lab_result_rows">%1$d linhas retornadas</string>
     <string name="rat_captured_title">RATO CAPTURADO</string>
     <string name="rat_captured_body">A aranha cibernética pegou o alvo. Caso encerrado.</string>
