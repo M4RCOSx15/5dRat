@@ -46,3 +46,20 @@ Sugestão: protótipo com Gemma 3 270M embutido em build variant "ai"
 separado do release principal; se a qualidade pt-BR decepcionar,
 descartar sem custo ao jogo. Decisão final fica com o usuário (M12 é
 condicional ao resultado desta avaliação de custo-benefício).
+
+## Implementação (M12 — 2026-11-09)
+
+- Variant `aiDebug` (build type, `initWith debug`) — ADR-014. Tarefas do
+  Gradle inalteradas; novo alvo `assembleAiDebug`.
+- **Pin em `litertlm-android:0.16.1`** — a partir de 0.17.0 a biblioteca
+  passa a Kotlin 2.4.0 e seu metadata é incompatível com o compilador
+  Kotlin 2.2 embutido no AGP 9.4.1 (verificado 2026-11-09 no maven.google.com
+  e em build local).
+- Modelo `gemma3_270m.litertlm` vai em `app/src/aiDebug/assets/models/` —
+  não versionado (`*.litertlm` no .gitignore); fonte no LEIA-ME.txt da pasta.
+  No primeiro uso o app o copia para `filesDir/llm/` porque `EngineConfig`
+  exige caminho de arquivo (assets não são paths).
+- Ausência/falha do modelo degrada para `TemplateNarrativeGenerator` e a UI
+  sinaliza "texto de reserva" — o jogo nunca quebra.
+- Para testar em device real: `gradlew.bat installAiDebug` (LiteRT não roda
+  em emulador).
