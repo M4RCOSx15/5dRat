@@ -1,0 +1,12 @@
+Modelo de IA do protótipo M12 (variant aiDebug).
+
+Coloque aqui o arquivo `gemma3_270m.litertlm` (Gemma 3 270M, formato
+LiteRT, ~300 MB) obtido no Hugging Face:
+
+  https://huggingface.co/google/gemma-3-270m-it
+
+Consulte docs/LLM-SPIKE.md para a fonte oficial e a licença.
+
+O arquivo NÃO é versionado no Git (ver .gitignore: *.litertlm).
+Sem o modelo, o app segue funcionando e usa a narrativa de reserva
+determinística — a UI sinaliza que o texto não veio da IA.

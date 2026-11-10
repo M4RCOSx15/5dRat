@@ -31,6 +31,11 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
         }
+        // M12 (ADR-014): variant de IA como build type — preserva os nomes
+        // das tasks existentes; a dependência LiteRT entra só nela.
+        create("aiDebug") {
+            initWith(getByName("debug"))
+        }
     }
 
     buildFeatures {
@@ -64,6 +69,11 @@ dependencies {
     implementation(libs.navigation.compose)
     debugImplementation(libs.compose.ui.tooling)
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // M12 — LiteRT-LM apenas na variant aiDebug (ADR-012/014).
+    // Forma por string: accessors typed só existem para configs geradas
+    // antes do script compilar — aiDebug é criado no próprio arquivo.
+    "aiDebugImplementation"(libs.litertlm.android)
 
     testImplementation(libs.junit)
     // Spike M1c — JDBC apenas em teste JVM; o motor real usa android.database.sqlite
