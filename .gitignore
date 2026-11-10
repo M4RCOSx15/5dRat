@@ -20,6 +20,9 @@ captures/
 *.pem
 *.key
 
+# M12: modelo LLM (~300 MB, licença HF) nunca é versionado
+*.litertlm
+
 # Artefatos de distribuicao
 *.apk
 *.aab

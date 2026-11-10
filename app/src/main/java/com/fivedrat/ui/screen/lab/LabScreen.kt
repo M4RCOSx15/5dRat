@@ -29,10 +29,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.fivedrat.R
 import com.fivedrat.data.AppServices
+import com.fivedrat.data.narrative.NarrativeModule
 import com.fivedrat.data.sql.AndroidSqlExecutor
 import com.fivedrat.data.sql.CaseSandbox
 import com.fivedrat.domain.mission.Campaign
 import com.fivedrat.domain.mission.MissionValidator
+import com.fivedrat.domain.narrative.NarrativeResult
 import com.fivedrat.domain.sql.SqlResult
 import com.fivedrat.ui.component.RatCapturedDialog
 import com.fivedrat.ui.theme.CodeTextStyle
@@ -115,6 +117,47 @@ fun LabScreen(
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
+                // M12: botão de narrativa por IA existe só no variant aiDebug
+                // (NarrativeModule.aiAvailable=false em debug/release).
+                if (NarrativeModule.aiAvailable) {
+                    var aiBriefing by remember(case.id) {
+                        mutableStateOf<NarrativeResult?>(null)
+                    }
+                    var aiBusy by remember { mutableStateOf(false) }
+                    OutlinedButton(
+                        onClick = {
+                            if (!aiBusy) {
+                                aiBusy = true
+                                scope.launch {
+                                    aiBriefing = NarrativeModule.briefing(context, case)
+                                    aiBusy = false
+                                }
+                            }
+                        },
+                        enabled = !aiBusy,
+                    ) {
+                        Text(stringResource(R.string.lab_ai_briefing))
+                    }
+                    aiBriefing?.let {
+                        Text(
+                            text = it.text,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                        Text(
+                            text =
+                                stringResource(
+                                    if (it.aiGenerated) {
+                                        R.string.lab_ai_briefing_ai
+                                    } else {
+                                        R.string.lab_ai_briefing_fallback
+                                    },
+                                ),
+                            style = MaterialTheme.typography.labelSmall,
+                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        )
+                    }
+                }
             }
         }
 

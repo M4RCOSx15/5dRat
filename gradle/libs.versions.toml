@@ -16,6 +16,10 @@ activityCompose = "1.13.0"
 navigationCompose = "2.9.8"
 sqliteJdbc = "3.54.1.0"
 androidxTestJunit = "1.3.0"
+# Ultima verificacao: 2026-11-09 em maven.google.com (M12 — so variant aiDebug)
+# Pin em 0.16.1: a partir de 0.17.0 a lib passa a Kotlin 2.4.0 e seu metadata
+# e incompativel com o compilador Kotlin 2.2 embutido no AGP 9 (ADR-014).
+litertlm = "0.16.1"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -28,6 +32,7 @@ activity-compose = { group = "androidx.activity", name = "activity-compose", ver
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 sqlite-jdbc = { group = "org.xerial", name = "sqlite-jdbc", version.ref = "sqliteJdbc" }
 androidx-test-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
+litertlm-android = { group = "com.google.ai.edge.litertlm", name = "litertlm-android", version.ref = "litertlm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

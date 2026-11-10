@@ -210,3 +210,30 @@
 - Removido PlaceholderScreen.kt (fallback inalcançável — todos os destinos
   têm telas reais), import/else em FiveDRatApp, string placeholder_coming_soon
   e docstring velha de AppDestination. Verificações: verde.
+
+## 2026-11-09 — M12: integração controlada de IA (plano)
+- Aprovada pelo usuário a execução da M12 conforme recomendação do spike:
+  protótipo de narrativa por LLM em variant separada.
+- Desenho: build type `aiDebug` (initWith debug) — variant "ai" sem renomear
+  tasks; `litertlm-android` só nela (aiDebugImplementation).
+- Fronteira `domain/narrative/NarrativeGenerator` + `NarrativeResult`
+  (texto + flag aiGenerated — honestidade da fonte, P6). Fallback
+  TemplateNarrativeGenerator determinístico em todos os variants.
+- Binding por source set (NarrativeModule em debug/release/aiDebug);
+  modelo `gemma3_270m.litertlm` em src/aiDebug/assets/models (fora do VCS).
+- Escopo: só sabor narrativo no card de briefing do LabScreen; mecânica e
+  validação seguem determinísticas (ADR-012).
+
+## 2026-11-09 — M12 implementada (em revisão)
+- Entregue: fronteira `NarrativeGenerator`/`NarrativeResult`/`NarrativePrompt`
+  (domain) e `TemplateNarrativeGenerator` (data); binding `NarrativeModule`
+  por variant (debug/release → template, aiDebug → LiteRT);
+  `LiteRtNarrativeGenerator` copia o modelo de assets para filesDir no 1º uso;
+  botão "Briefing IA" no card de briefing do LabScreen (só aiDebug);
+  `uses-native-library` no manifest do variant; `*.litertlm` no .gitignore.
+- Achado de build: litertlm ≥0.17.0 traz metadata Kotlin 2.4.0 incompatível
+  com o Kotlin 2.2 embutido no AGP 9.4.1 — pin em **0.16.1** (ADR-014).
+- Verificações verdes: `ktlintCheck`, `assembleDebug`,
+  `testDebugUnitTest` (27 testes), `assembleAiDebug`. Sem teste em device —
+  LiteRT exige hardware real (`installAiDebug` para validar no aparelho).
+- Aguardando aprovação explícita antes do merge e da próxima microtask.

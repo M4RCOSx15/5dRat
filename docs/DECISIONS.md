@@ -116,3 +116,22 @@ compose foi forçado a 2.4.21 (plugin pedia 2.2.10 inexistente).
 allowBackup=true mantido definitivamente (encerra provisório do ADR-008):
 dados de jogo não-sensíveis; backup preserva progresso em troca de aparelho.
 Pendente de entrega: keystore de release (fora do VCS por política).
+
+## ADR-014 — Variant de IA como build type; pin LiteRT-LM 0.16.1 — 2026-11-09
+Contexto: M12 implementou o protótipo de IA do ADR-012. Dois pontos de
+decisão: como isolar o código de IA e qual versão da lib usar.
+Decisão: (a) build type `aiDebug` (`initWith debug`) em vez de flavor — um
+flavor renomearia todas as tasks (`assembleDebug` → `assemble<flavor>Debug`)
+e quebraria CI, docs e hábitos; o build type adiciona `assembleAiDebug` sem
+tocar no resto. Binding por source set (`NarrativeModule` com mesma FQCN em
+debug/release/aiDebug) pois main não pode referenciar classes de variant.
+(b) `litertlm-android` pin em **0.16.1** — a partir de 0.17.0 a lib traz
+metadata Kotlin 2.4.0, incompatível com o compilador Kotlin 2.2 embutido no
+AGP 9.4.1 (erro de build verificado). Modelo `.litertlm` fica fora do VCS
+nos assets do variant; falhas/ausência degradam para narrativa de reserva
+sinalizada na UI (P6).
+Alternativas: flavor (descartada — churn de tasks); 0.19.1 +
+`-Xskip-metadata-version-check` (quebraria chamadas Kotlin nomeadas e
+suspend do SDK); MediaPipe (depreciada, ADR-012).
+Consequências: reavaliar o pin quando o Kotlin embutido do AGP subir para
+2.4.x; CI não compila aiDebug (dependência pesada, sem device p/ validar).
