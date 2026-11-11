@@ -23,7 +23,7 @@ debug/previews). M6 pode rodar em paralelo às telas.
 | M9 | Progressão e recompensas | ✅ Concluída | m9/live-progress-ui | M6, M8 |
 | M10 | Gerador procedural determinístico | ✅ Concluída | m10/scenario-generator | M7 |
 | M11 | Preparação para LLM local | ✅ Concluída | m11/local-llm-spike | M10 |
-| M12 | Integração controlada de IA (se M11 justificar) | 🔄 Em revisão | m12/llm-integration | M11 |
+| M12 | Integração controlada de IA (se M11 justificar) | ✅ Concluída | m12/llm-integration | M11 |
 | M13 | Hardening e entrega | ✅ Concluída | m13/hardening | todas |
 
 ## Decisões pendentes resolvidas na M0
