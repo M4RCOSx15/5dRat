@@ -237,3 +237,10 @@
   `testDebugUnitTest` (27 testes), `assembleAiDebug`. Sem teste em device —
   LiteRT exige hardware real (`installAiDebug` para validar no aparelho).
 - Aguardando aprovação explícita antes do merge e da próxima microtask.
+
+## 2026-11-10 — M12 aprovada (PR #21 merge) — backlog zerado
+- PR #21 mergeado na main: protótipo de narrativa por IA na variant
+  `aiDebug` (LiteRT-LM 0.16.1, ADR-014). PLAN sincronizado: M12 ✅.
+- Backlog M0–M13 completo. Pendências conhecidas fora de microtask:
+  keystore de release (artefato local, fora do VCS — ADR-013) e
+  validação do NavigationFlowTest/aiDebug em device real.
