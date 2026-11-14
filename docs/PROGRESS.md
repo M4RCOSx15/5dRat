@@ -244,3 +244,11 @@
 - Backlog M0–M13 completo. Pendências conhecidas fora de microtask:
   keystore de release (artefato local, fora do VCS — ADR-013) e
   validação do NavigationFlowTest/aiDebug em device real.
+
+## 2026-11-11 — fix/lab-nav-test: NavigationFlowTest validado em emulador
+- Primeira execução real do `connectedDebugAndroidTest` (emulador API 36):
+  2 testes falhavam — `lab_console_title`/`lab_schema_title` eram strings
+  órfãs nunca renderizadas, e `labToHomeAndBack` buscava literal com pipes.
+- Fix: títulos de seção "Schema" e "Console SQL" renderizados no LabScreen
+  (padrão do título "Resultado"); marcador do teste corrigido.
+- Resultado: 4/4 testes passando (3 NavigationFlowTest + SqlSandbox spike).

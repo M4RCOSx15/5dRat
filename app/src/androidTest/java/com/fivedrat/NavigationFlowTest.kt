@@ -29,7 +29,7 @@ class NavigationFlowTest {
     @Test
     fun labToHomeAndBack() {
         go("Laboratório")
-        assertOn("Escolha seu próximo caso|Console SQL|Briefing")
+        assertOn("Console SQL")
         go("Início")
         assertOn("MISSÃO ATUAL")
         go("Laboratório")
