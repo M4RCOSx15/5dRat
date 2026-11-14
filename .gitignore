@@ -2,6 +2,8 @@
 *.iml
 .gradle/
 local.properties
+# Gerado por updateDaemonJvm; criterio de JVM do daemon e local (CI usa JDK 17)
+gradle/gradle-daemon-jvm.properties
 build/
 **/build/
 .cxx/
