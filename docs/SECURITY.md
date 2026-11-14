@@ -59,5 +59,6 @@ erro.
   Confirmar no Android binding via `SqlSandboxAndroidSpikeTest`
   (connectedDebugAndroidTest) — gate de instrução única continua necessário.
 - **SQL de jogo funciona** em banco scratch isolado por arquivo.
-- Execução no emulador pendente (sem AVD na máquina); androidTest commitado
-  para rodar quando houver device — risco residual registrado.
+- Executado no emulador (API 36, 2026-11-11): `SqlSandboxAndroidSpikeTest`
+  verde via connectedDebugAndroidTest — achados confirmados no binding
+  Android; gate de instrução única da M7 mantido.

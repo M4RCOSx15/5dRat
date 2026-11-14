@@ -244,3 +244,16 @@
 - Backlog M0–M13 completo. Pendências conhecidas fora de microtask:
   keystore de release (artefato local, fora do VCS — ADR-013) e
   validação do NavigationFlowTest/aiDebug em device real.
+
+## 2026-11-13 — chore/post-m13-hygiene: higiene pós-M13 (em revisão)
+- `fix/lab-nav-test` segue pushed e validada em emulador, mas ainda sem
+  PR/merge na main — aprovação do usuário pendente.
+- `gradle/gradle-daemon-jvm.properties` (gerado por updateDaemonJvm, daemon
+  JVM 25) adicionado ao .gitignore: critério de daemon é ambiente local,
+  como `local.properties`; versionar quebraria a CI (temurin 17, sem
+  foojay-resolver).
+- SECURITY.md sincronizado: SqlSandboxAndroidSpikeTest executado no
+  emulador em 2026-11-11 (entrada anterior dizia "pendente").
+- Pendências fora de microtask mantidas: keystore de release (artefato
+  local do usuário, ADR-013) e validação do aiDebug em device físico
+  (LiteRT exige hardware real).
