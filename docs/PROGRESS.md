@@ -257,3 +257,15 @@
 - Pendências fora de microtask mantidas: keystore de release (artefato
   local do usuário, ADR-013) e validação do aiDebug em device físico
   (LiteRT exige hardware real).
+
+## 2026-11-15 — chore/lab-dead-code: resgate de limpeza não-mergeada (em revisão)
+- PRs #23 (fix/lab-nav-test) e #24 (higiene) mergeados; main local
+  verificada verde (ktlint, assembleDebug, 27 testes, lintDebug).
+- Branch `chore/dead-code-cleanup` (nunca mergeada) tinha 3 commits:
+  gitignore do daemon (já entregue via #24) e docs supersedes — sobra real:
+  remoção de `DemoScratchDb.kt` (morto desde M8/CaseSandbox) resgatada aqui.
+- `lab_schema_title` não podia ser removida como no commit original (virou
+  renderizada no fix/lab-nav-test) — corrigida para "Schema — {caseId}.db"
+  dinâmico, nome real do sandbox por caso.
+- README sincronizado: MVP completo, sandbox por caso, SQLite puro
+  (ADR-011, não Room), fronteira NarrativeGenerator, pendências reais.

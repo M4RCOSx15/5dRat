@@ -163,7 +163,7 @@ fun LabScreen(
 
         // Schema do caso
         Text(
-            text = stringResource(R.string.lab_schema_title),
+            text = stringResource(R.string.lab_schema_title, "${case.id}.db"),
             style = MaterialTheme.typography.labelLarge,
             color = MaterialTheme.colorScheme.secondary,
         )
