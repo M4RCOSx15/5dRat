@@ -41,11 +41,13 @@ Revisão básica por categoria MASVS do app 5dRat (offline, sem INTERNET).
 - ✅ Deps mínimas e pinadas: compose BOM, material3, icons, navigation,
   junit (test), sqlite-jdbc (test only), androidx.test (androidTest).
 - ✅ Testes: gate SQL (9), gerador (4), progresso (3), sanity.
-- ⚠️ Pendente: keystore de release (signing) — fora do VCS por política;
-  gerar para distribuição Play/sideload assinado.
+- ✅ Assinatura de release entregue (2026-11-15): `release.keystore` +
+  `keystore.properties` locais (fora do VCS, gitignored); `assembleRelease`
+  gera `app-release.apk` assinado (verificado via apksigner). Sem o arquivo,
+  release sai unsigned — CI intacta.
 
 ## Conclusão
 
 Postura adequada ao MVP offline: superfície de ataque mínima por design
 (sem rede, sem IPC, sem permissões), controles de sandbox SQL verificados,
-ofuscação de release ativa. Único pendente real: assinatura de release.
+ofuscação de release ativa e assinatura de release configurada.

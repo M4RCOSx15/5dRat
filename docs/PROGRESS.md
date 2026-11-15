@@ -257,3 +257,17 @@
 - Pendências fora de microtask mantidas: keystore de release (artefato
   local do usuário, ADR-013) e validação do aiDebug em device físico
   (LiteRT exige hardware real).
+
+## 2026-11-15 — limpeza de branches + chore/release-signing (em revisão)
+- Limpeza autorizada: 17 branches remotas deletadas (todas mergeadas +
+  `develop` — remoção do ADR-003 finalmente executada — +
+  `dead-code-cleanup`, cujo conteúdo útil foi resgatado em lab-dead-code);
+  24 locais deletadas. Restam `main` e `chore/lab-dead-code` (PR aberto).
+- Keystore de release (ADR-013): `release.keystore` RSA 2048/10.000 dias
+  gerado localmente + `keystore.properties` (ambos gitignored); senha
+  aleatória guardada só no arquivo — fazer backup fora do repo.
+- `build.gradle.kts`: signingConfig release condicional — assina quando
+  `keystore.properties` existe; ausente → release unsigned (CI e
+  terceiros sem keystore seguem compilando).
+- Verificado: `assembleRelease` → `app-release.apk` assinado
+  (apksigner: DN CN=5dRat); ktlintCheck/assembleDebug/testes verdes.
