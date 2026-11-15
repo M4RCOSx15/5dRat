@@ -258,14 +258,16 @@
   local do usuário, ADR-013) e validação do aiDebug em device físico
   (LiteRT exige hardware real).
 
-## 2026-11-15 — chore/lab-dead-code: resgate de limpeza não-mergeada (em revisão)
-- PRs #23 (fix/lab-nav-test) e #24 (higiene) mergeados; main local
-  verificada verde (ktlint, assembleDebug, 27 testes, lintDebug).
-- Branch `chore/dead-code-cleanup` (nunca mergeada) tinha 3 commits:
-  gitignore do daemon (já entregue via #24) e docs supersedes — sobra real:
-  remoção de `DemoScratchDb.kt` (morto desde M8/CaseSandbox) resgatada aqui.
-- `lab_schema_title` não podia ser removida como no commit original (virou
-  renderizada no fix/lab-nav-test) — corrigida para "Schema — {caseId}.db"
-  dinâmico, nome real do sandbox por caso.
-- README sincronizado: MVP completo, sandbox por caso, SQLite puro
-  (ADR-011, não Room), fronteira NarrativeGenerator, pendências reais.
+## 2026-11-15 — limpeza de branches + chore/release-signing (em revisão)
+- Limpeza autorizada: 17 branches remotas deletadas (todas mergeadas +
+  `develop` — remoção do ADR-003 finalmente executada — +
+  `dead-code-cleanup`, cujo conteúdo útil foi resgatado em lab-dead-code);
+  24 locais deletadas. Restam `main` e `chore/lab-dead-code` (PR aberto).
+- Keystore de release (ADR-013): `release.keystore` RSA 2048/10.000 dias
+  gerado localmente + `keystore.properties` (ambos gitignored); senha
+  aleatória guardada só no arquivo — fazer backup fora do repo.
+- `build.gradle.kts`: signingConfig release condicional — assina quando
+  `keystore.properties` existe; ausente → release unsigned (CI e
+  terceiros sem keystore seguem compilando).
+- Verificado: `assembleRelease` → `app-release.apk` assinado
+  (apksigner: DN CN=5dRat); ktlintCheck/assembleDebug/testes verdes.

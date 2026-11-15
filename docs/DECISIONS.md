@@ -115,7 +115,9 @@ engenharia reversa sobre seeds/regras e APK menor — 1,4MB). O mapping do
 compose foi forçado a 2.4.21 (plugin pedia 2.2.10 inexistente).
 allowBackup=true mantido definitivamente (encerra provisório do ADR-008):
 dados de jogo não-sensíveis; backup preserva progresso em troca de aparelho.
-Pendente de entrega: keystore de release (fora do VCS por política).
+Status 2026-11-15: entregue — `release.keystore` (RSA 2048, 10.000 dias) +
+`keystore.properties` locais, ambos gitignored; `assembleRelease` assina
+quando o arquivo existe e sai unsigned sem ele (CI inalterada).
 
 ## ADR-014 — Variant de IA como build type; pin LiteRT-LM 0.16.1 — 2026-11-09
 Contexto: M12 implementou o protótipo de IA do ADR-012. Dois pontos de
