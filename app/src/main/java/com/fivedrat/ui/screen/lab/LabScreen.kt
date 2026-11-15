@@ -162,6 +162,11 @@ fun LabScreen(
         }
 
         // Schema do caso
+        Text(
+            text = stringResource(R.string.lab_schema_title),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             case.tables.forEach { table ->
                 Surface(
@@ -179,6 +184,11 @@ fun LabScreen(
         }
 
         // Console SQL
+        Text(
+            text = stringResource(R.string.lab_console_title),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         OutlinedTextField(
             value = sql,
             onValueChange = { sql = it },
